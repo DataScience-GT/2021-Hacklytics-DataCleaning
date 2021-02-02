@@ -1,9 +1,9 @@
 <!doctype html>
-<h2>Choose a file to clean</h2>
+<h2>Choose a file to clean (csv and xlsx files only)</h2>
 <form action = "http://localhost:5000/clean" method = "POST" 
 enctype = "multipart/form-data">
   
-    <input type="file" name="file" required>
+    <input type="file" name="file" accept=".csv,.xlsx" required>
 
     <p>Drop all Null Values?</p>
 
@@ -12,6 +12,8 @@ enctype = "multipart/form-data">
 
     <input type="radio" id="zero" name="nullValues" value="False">
     <label for="zero">No</label><br>
+
+    <label>For more info on dropping null values check out https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html</label>
 
     <p> Select Interpolation Type</p>
 
@@ -24,7 +26,8 @@ enctype = "multipart/form-data">
     <input type="radio" id="spline" name="interpolation" value="spline">
     <label for="spline"> Spline Interpolation </label><br>
 
-    <input type="radio" id="pad" name="interpolation" value="pad">
-    <label for="pad"> Pad Interpolation </label><br>
-  <button type='submit' class='submit'> Clean </button>
+    <label>For more info on interpolation check out https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.interpolate.html</label><br>
+    <button type='submit' class='submit'> Clean </button>
+
+  <h3>Need a project idea: Build a better data cleaner!</h3>
 </form>
