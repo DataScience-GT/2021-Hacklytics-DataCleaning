@@ -1,0 +1,30 @@
+<!doctype html>
+<h2>Choose a file to clean</h2>
+<form action = "http://localhost:5000/clean" method = "POST" 
+enctype = "multipart/form-data">
+  
+    <input type="file" name="file" required>
+
+    <p>Drop all Null Values?</p>
+
+    <input type="radio"  id="drop" name="nullValues" value="True" required>
+    <label for="drop">Yes</label><br>
+
+    <input type="radio" id="zero" name="nullValues" value="False">
+    <label for="zero">No</label><br>
+
+    <p> Select Interpolation Type</p>
+
+    <input type="radio" id="linear" name="interpolation" value="linear" required>
+    <label for="linear"> Linear Interpolation </label><br>
+
+    <input type="radio" id="polynomial" name="interpolation" value="polynomial">
+    <label for="polynomial"> Polynomial Interpolation </label><br>
+
+    <input type="radio" id="spline" name="interpolation" value="spline">
+    <label for="spline"> Spline Interpolation </label><br>
+
+    <input type="radio" id="pad" name="interpolation" value="pad">
+    <label for="pad"> Pad Interpolation </label><br>
+  <button type='submit' class='submit'> Clean </button>
+</form>
