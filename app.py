@@ -3,7 +3,6 @@ from flask_cors import CORS
 from flask import request
 from flask import render_template, redirect, send_file
 import pandas as pd
-import werkzeug
 
 app = Flask(__name__)
 CORS(app)
