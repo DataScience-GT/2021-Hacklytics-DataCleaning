@@ -1,4 +1,7 @@
 <!doctype html>
+<head>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+</head>
 <h2>Choose a file to clean (csv and xlsx files only)</h2>
 <form action = "http://localhost:5000/clean" method = "POST" 
 enctype = "multipart/form-data">
