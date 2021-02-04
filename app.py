@@ -27,9 +27,13 @@ def clean_file():
 
     if nullValue:
       df.dropna(inplace=True)
-
-    df.interpolate(method=interpolation, axis=0, inplace=True)
-
+    
+    if interpolation == 'linear':
+      df.interpolate(method='linear', axis=0, inplace=True)
+    else:
+      df.interpolate(method=interpolation, order=2, axis=0, inplace=True)
+      
+    redirect('http://localhost:5000')
     if mimetype == 'text/csv':
       df.to_csv('./data.csv')
       return send_file('./data.csv',
@@ -42,8 +46,6 @@ def clean_file():
                      mimetype='text/xlsx',
                      attachment_filename='data.xlsx',
                      as_attachment=True)
-    
-    
 
 if __name__ == '__main__':
     app.run(debug=True)
