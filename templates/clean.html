@@ -1,36 +1,84 @@
 <!doctype html>
 <head>
-  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+  <!-- <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}"> -->
+  <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel= "stylesheet" type= "text/css" href="../static/main.css">
 </head>
-<h2>Choose a file to clean (csv and xlsx files only)</h2>
-<form action = "http://localhost:5000/clean" method = "POST" 
-enctype = "multipart/form-data">
+
+<body style="background-color: #ECE9E1; color: #262730; font-family: 'Red Hat Text'; font-size:18px;">
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand px-3" href="https://hacklytics.io/">
+      <img src="../static/images/square-logo.png" alt="" width="62" height="62">
+    </a>
+    <h1 class="navbar-nav mb-2" style="color: #20A39E; font-weight: 700;">
+      Data Cleaning Center
+    </h1>
+  </nav>
   
-    <input type="file" name="file" accept=".csv,.xlsx" required>
+  <div class="container my-3">
+    <form action = "http://localhost:5000/clean" method = "POST" 
+    enctype = "multipart/form-data">
+        <fieldset class="row mb-3">
+          <label for="selectFile" class="col-form-label col-sm-3 pt-0">Choose a file (csv and xlsx only)</label>
+          <div class="col-sm-6">
+            <input id="selectFile" class="form-control" type="file" name="file" accept=".csv,.xlsx" required>
+          </div>
+        </fieldset>
+  
+        <fieldset class="row mb-3">
+          <legend class="col-form-label col-sm-3 pt-0">Drop all Null Values?</legend>
+          <div class="col-sm-9">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="nullValues" id="drop" value="True" required checked>
+              <label class="form-check-label" for="drop"> Yes</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="nullValues" id="zero" value="False">
+              <label class="form-check-label" for="zero"> No</label>
+            </div>
+            <div class="form-text">For more info on dropping null values check out 
+              <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html">
+                this website
+              </a>
+            </div>
+        </fieldset>
+    
+        <fieldset class="row mb-3">
+          <legend class="col-form-label col-sm-3 pt-0">Select Interpolation Type</legend>
+          <div class="col-sm-9">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="interpolation" id="linear" value="linear" required checked>
+              <label class="form-check-label" for="linear"> Linear Interpolation </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="interpolation" id="polynomial" value="polynomial">
+              <label class="form-check-label" for="polynomial"> Polynomial Interpolation</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="interpolation" id="spline" value="spline">
+              <label class="form-check-label" for="polynomial"> Spline Interpolation</label>
+            </div>
+            <div class="form-text">For more info on dropping null values check out 
+              <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.interpolate.html">
+                this website
+              </a>
+            </div>
+        </fieldset>
+        
+        <div class="row mb-3">
+          <div class="col-sm-3"></div>
+          <button type='submit' class='col-sm-2 btn btn-primary' style="background-color: #20A39E; border-color: #20A39E;"> Clean </button>
+        </div>
 
-    <p>Drop all Null Values?</p>
+        <div class="alert alert-success" role="alert" style="margin-top: 2em;">
+           Need a project idea?  Build a better data cleaner!
+        </div>
 
-    <input type="radio"  id="drop" name="nullValues" value="True" required>
-    <label for="drop">Yes</label><br>
+    </form>
+  </div>
 
-    <input type="radio" id="zero" name="nullValues" value="False">
-    <label for="zero">No</label><br>
+</body>
 
-    <label>For more info on dropping null values check out https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.dropna.html</label>
-
-    <p> Select Interpolation Type</p>
-
-    <input type="radio" id="linear" name="interpolation" value="linear" required>
-    <label for="linear"> Linear Interpolation </label><br>
-
-    <input type="radio" id="quadratic" name="interpolation" value="quadratic">
-    <label for="polynomial"> Quadratic Interpolation </label><br>
-
-    <input type="radio" id="spline" name="interpolation" value="spline">
-    <label for="spline"> Spline Interpolation </label><br>
-
-    <label>For more info on interpolation check out https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.interpolate.html</label><br>
-    <button type='submit' class='submit'> Clean </button>
-
-  <h3>Need a project idea: Build a better data cleaner!</h3>
-</form>

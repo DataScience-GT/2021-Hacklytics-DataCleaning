@@ -19,7 +19,7 @@ def clean_file():
 
     mimetype = file.content_type
     
-    if mimetype == 'text/csv':
+    if mimetype == 'text/csv' or mimetype == 'application/vnd.ms-excel':
       df = pd.read_csv(file)
     else:
       df = pd.read_excel(file)
@@ -33,7 +33,7 @@ def clean_file():
       df.interpolate(method=interpolation, order=2, axis=0, inplace=True)
       
     redirect('http://localhost:5000')
-    if mimetype == 'text/csv':
+    if mimetype == 'text/csv' or mimetype == 'application/vnd.ms-excel':
       df.to_csv('./data.csv')
       return send_file('./data.csv',
                      mimetype='text/csv',
