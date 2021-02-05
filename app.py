@@ -19,18 +19,24 @@ def clean_file():
     file = request.files['file']
 
     mimetype = file.content_type
+    print(mimetype)
     
-    if mimetype == 'text/csv':
+    if mimetype == 'text/csv' or mimetype == 'application/vnd.ms-excel':
       df = pd.read_csv(file)
     else:
       df = pd.read_excel(file)
+    
 
     if nullValue:
       df.dropna(inplace=True)
-
-    df.interpolate(method=interpolation, axis=0, inplace=True)
-
-    if mimetype == 'text/csv':
+    
+    if interpolation == 'linear':
+      df.interpolate(method='linear', axis=0, inplace=True)
+    else:
+      df.interpolate(method=interpolation, order=2, axis=0, inplace=True)
+      
+    redirect('http://localhost:5000')
+    if  mimetype == 'text/csv' or mimetype == 'application/vnd.ms-excel':
       df.to_csv('./data.csv')
       return send_file('./data.csv',
                      mimetype='text/csv',
@@ -42,8 +48,7 @@ def clean_file():
                      mimetype='text/xlsx',
                      attachment_filename='data.xlsx',
                      as_attachment=True)
-    
-    
 
 if __name__ == '__main__':
     app.run(debug=True)
+    # print(mimetype)
